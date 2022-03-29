@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite::resource:sample.db
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
+  jpa:
+    database-platform: org.sqlite.hibernate.dialect.SQLiteDialect
