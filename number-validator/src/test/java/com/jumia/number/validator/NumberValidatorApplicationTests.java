@@ -292,12 +292,7 @@ class NumberValidatorApplicationTests {
     @Test
     @Order(9)
     void TestCountryLookUp() throws Exception {
-        String result = TestUtils.performGetRequest(mockMvc, "/Countries", null, String.class);
-        Map<String, CountryNumberSchema> countriesSchema = new ObjectMapper().readValue(
-                new InputStreamReader(getClass().getResourceAsStream("/static/CountryRegex.json"), "UTF-8"),
-                new TypeReference<Map<String, CountryNumberSchema>>() {
-                });
-
-        assert countriesSchema.size() > 0;
+        Map result = TestUtils.performGetRequest(mockMvc, "/countries", null, Map.class);
+        assert result.size() > 0;
     }
 }
