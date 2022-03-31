@@ -11,7 +11,7 @@ import { NumberResponse } from '../NumberResponse';
   styleUrls: ['./numbers-list.component.css']
 })
 export class NumbersListComponent implements OnInit {
-  @ViewChild(MatPaginator) 
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
   response: NumberResponse = {};
   displayedColumns: string[] = ['id', 'name', 'phone', 'country', 'state'];
@@ -72,8 +72,8 @@ export class NumbersListComponent implements OnInit {
     this.resetToZeroPage();
     this.getNumber();
   }
-  resetToZeroPage(){
-    this.paginator.pageIndex=0;
-    this.currentPageIndex=0;
+  resetToZeroPage() {
+    this.paginator.pageIndex = 0;
+    this.currentPageIndex = 0;
   }
 }
