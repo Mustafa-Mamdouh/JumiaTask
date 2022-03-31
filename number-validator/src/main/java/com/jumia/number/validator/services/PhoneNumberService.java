@@ -15,10 +15,14 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -29,7 +33,7 @@ class PhoneNumberService implements PhoneNumberServiceInterface {
     private final NumberValidationService numberValidationService;
     private final ModelMapper mapper;
     private final CountryCodeProperties countryCodeProperties;
-
+    private final Map<String, Comparator<? super Customer>> comparatorMap;
 
     public NumbersResponse getNumbersList(SearchCriteria criteria) {
         return mapToResponse(applySearchCriteria(customerRepository.findAll(), criteria), criteria);
@@ -38,8 +42,8 @@ class PhoneNumberService implements PhoneNumberServiceInterface {
     private List<Customer> applySearchCriteria(List<Customer> customerList, SearchCriteria criteria) {
         return customerList.stream()
                 .peek(this::updateCountry).peek(numberValidationService::updateState)
-                .filter(byCountry(criteria.getCountry())).filter(byState(criteria.getState())).collect(Collectors.toList());
-
+                .filter(byCountry(criteria.getCountry())).filter(byState(criteria.getState()))
+                .sorted(comparatorMap.get(criteria.getSort()+criteria.getDirection().name())).collect(Collectors.toList());
     }
 
     private NumbersResponse mapToResponse(List<Customer> customerList, SearchCriteria criteria) {

@@ -14,7 +14,7 @@ public class PagingAndSortingCriteria {
     int numberOfItems = 10;
     @Min(0)
     int page = 0;
-    String sort;
+    String sort = "id";
     Sort.Direction direction = Sort.Direction.ASC;
     public Pageable asPageable() {
         if (!StringUtils.isEmpty(sort)) {
