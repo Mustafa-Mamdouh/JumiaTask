@@ -31,5 +31,9 @@ I came out with two approches for number validating,
 ```
 http://localhost:8080/
 ```
+
+## Web Interface
+![alt text](https://raw.githubusercontent.com/Mustafa-Mamdouh/JumiaTask/master/front-end.png)
+
 ## Test Coverage
 ![alt text](https://raw.githubusercontent.com/Mustafa-Mamdouh/JumiaTask/master/test-coverage.png)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumia.number.validator.dto.CountryNumberSchema;
 import com.jumia.number.validator.dto.NumbersResponse;
+import com.jumia.number.validator.dto.ServiceResponseDto;
 import com.jumia.number.validator.enums.NumberState;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -294,5 +295,20 @@ class NumberValidatorApplicationTests {
     void TestCountryLookUp() throws Exception {
         Map result = TestUtils.performGetRequest(mockMvc, "/countries", null, Map.class);
         assert result.size() > 0;
+    }
+
+
+    @Test
+    void BadRequestNoSortColumn() throws Exception {
+        int page = 2;
+        int elements = 5;
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("page", page);
+        paramMap.put("numberOfItems", elements);
+        paramMap.put("sort", "RANDOM");
+        ServiceResponseDto response = TestUtils.performGetRequest(mockMvc, "/numbers", paramMap, ServiceResponseDto.class);
+        assert response.getCode() == 500;
+
+
     }
 }
