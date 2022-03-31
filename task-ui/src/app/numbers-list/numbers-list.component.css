@@ -1,0 +1,15 @@
+table {
+    width: 100%;
+  }
+  
+  th {
+    text-align: left;
+  }
+  
+  .ddls{
+        display: flex;
+        margin: 1rem;
+  }
+  .mat-form-field{
+      margin-right: 1rem;
+  }

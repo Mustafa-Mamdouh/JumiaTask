@@ -1,0 +1,83 @@
+<div class="ddls">
+    <mat-form-field appearance="fill">
+        <mat-label>Sort By:</mat-label>
+        <mat-select (selectionChange)="onSorChanges($event)">
+            <mat-option [value]="'none'"></mat-option>
+            <mat-option [value]="'id'">ID</mat-option>
+            <mat-option [value]="'name'">Name</mat-option>
+            <mat-option [value]="'phone'">Phone</mat-option>
+            <mat-option [value]="'country'">Country</mat-option>
+            <mat-option [value]="'state'">state</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Sort Direction:</mat-label>
+        <mat-select (selectionChange)="onSortDirectionChanges($event)">
+            <mat-option [value]="'ASC'">ASC</mat-option>
+            <mat-option [value]="'DESC'">DESC</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>State:</mat-label>
+        <mat-select (selectionChange)="onValidFilterChange($event)">
+            <mat-option [value]="'none'">ALL</mat-option>
+            <mat-option [value]="'VALID'">VALID</mat-option>
+            <mat-option [value]="'NOT_VALID'">NOT_VALID</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Country:</mat-label>
+        <mat-select (selectionChange)="onCountryChange($event)">
+            <mat-option [value]="'none'">ALL</mat-option>
+            <mat-option *ngFor="let country of countryList" [value]="country">{{country}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+
+<table mat-table [dataSource]="response.data" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+    </ng-container>
+    ß
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> State </th>
+        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+    </ng-container>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="totalItems" [pageSize]="currentPageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPaginateChange($event)" aria-label="Select page" [showFirstLastButtons]="true">
+</mat-paginator>
