@@ -14,19 +14,18 @@ public class NumbersResponse {
     Long total;
     int pageNumber;
     int numberOfElements;
+    int pageSize;
     List<? extends CustomerNumberDto> data;
 
     public NumbersResponse(Page page) {
-        total = page.getTotalElements();
-        pageNumber = page.getNumber();
-        numberOfElements = page.getNumberOfElements();
-        data = page.getContent();
+        this(page, page.getContent());
     }
 
     public NumbersResponse(Page page, List mappedContent) {
         total = page.getTotalElements();
         pageNumber = page.getNumber();
         numberOfElements = page.getNumberOfElements();
+        pageSize = page.getSize();
         data = mappedContent;
     }
 }
