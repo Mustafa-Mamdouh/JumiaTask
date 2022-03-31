@@ -42,9 +42,9 @@ public class TestUtils {
 
     public static boolean isListOrdered(List idList, boolean isAsc) {
         if (isAsc) {
-            return idList.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()).equals(idList);
-        } else {
             return idList.stream().sorted().collect(Collectors.toList()).equals(idList);
+        } else {
+            return idList.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()).equals(idList);
         }
     }
 
