@@ -1,7 +1,6 @@
 package com.jumia.number.validator.repos.impl;
 
 import com.jumia.number.validator.dto.CountryNumberSchema;
-import com.jumia.number.validator.dto.CustomerNumberDto;
 import com.jumia.number.validator.dto.SearchCriteria;
 import com.jumia.number.validator.models.Customer;
 import com.jumia.number.validator.properties.CountryCodeProperties;
@@ -20,6 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -80,7 +81,12 @@ class CustomerRepositoryImpl implements CustomCustomerRepository {
         addSqliteRegexpFunction();
         String condition = criteria.asCondition();
         String customQuery = createQueryString(condition, criteria);
-        return new PageImpl<Customer>(getCriteriaQuery(criteria, customQuery).getResultList(), criteria.asPageable(), countByQuery(condition));
+        int total = countByQuery(condition);
+        List resultList = Collections.emptyList();
+        if (total > 0) {
+            resultList = getCriteriaQuery(criteria, customQuery).getResultList();
+        }
+        return new PageImpl<Customer>(resultList, criteria.asPageable(), total);
     }
 
     private Query getCriteriaQuery(SearchCriteria criteria, String customQuery) {
