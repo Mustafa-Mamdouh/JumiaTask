@@ -1,4 +1,4 @@
-# Numver Vieweing Service
+# Number Vieweing Service
 
 ###### Requirment statement:
 **Exercise**
